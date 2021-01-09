@@ -7,6 +7,16 @@
        <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
        <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
    </div>
+    <div class="col-lg-12 mb-4">
+        {% for movie_type in list_name %}
+            {% set split_list = movie_type.split('_') %}
+                {% if movie_type == current_list %}
+                    <a href="{{ url_for('homepage', list_type=movie_type) }}" class="btn btn-outline-info active" aria-pressed="true">{{  split_list[0]|capitalize  }} {{  split_list[1]|capitalize  }} {{  split_list[2]|capitalize  }}</a>
+                {% else %}
+                    <a href="{{ url_for('homepage', list_type=movie_type) }}" class="btn btn-outline-info" aria-pressed="false">{{  split_list[0]|capitalize  }} {{  split_list[1]|capitalize  }} {{  split_list[2]|capitalize  }}</a>
+                {% endif %}
+        {% endfor %}
+    </div>
    {% for movie in movies %}
    <div class="col-lg-3 col-md-6 mb-4">
        <div class="card h-100">
@@ -15,7 +25,7 @@
                <h4 class="card-title text-center">{{ movie.title }}</h4>
            </div>
            <div class="card-footer text-center">
-               <a href="#" class="btn btn-primary">Pokaż więcej</a>
+               <a href="{{ url_for('movie_details', movie_id=movie.id) }}">Pokaż więcej</a>
            </div>
        </div>
    </div>
